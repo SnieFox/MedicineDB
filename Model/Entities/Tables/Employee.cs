@@ -1,5 +1,7 @@
-﻿using System;
+﻿using MedicineDB.ViewModels;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +10,7 @@ namespace MedicineDB.Entity.Tables
 {
     internal class Employee
     {
+
         public int Id { get; set; }
         public string Surname { get; set; }
         public string Name { get; set; }
@@ -20,5 +23,22 @@ namespace MedicineDB.Entity.Tables
         public Speciality Speciality { get; set; }
         public Location Location { get; set; }
         public Workplace Workplace { get; set; }
+
+
+        [NotMapped]
+        public Workplace EmployeeWorkplace
+        {
+            get
+            {
+                return MainWindowViewModel.GetWorkplaceById(WorkplaceID);
+            }
+        }
+        public Speciality EmployeeSpesiality
+        {
+            get
+            {
+                return MainWindowViewModel.GetSpecialitById(SpecialityID);
+            }
+        }
     }
 }

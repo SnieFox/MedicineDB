@@ -1,5 +1,7 @@
-﻿using System;
+﻿using MedicineDB.ViewModels;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,5 +16,7 @@ namespace MedicineDB.Entity.Tables
 
         public Location Location { get; set; }
         public List<Employee> Employee { get; set; }
+
+       
     }
 }

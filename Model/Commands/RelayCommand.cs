@@ -1,33 +1,23 @@
-﻿using System;
+﻿using MedicineDB.Model.Commands;
+using System;
 using System.Windows.Input;
 
 namespace MedicineDB.Commands
 {
-    internal class RelayCommand : ICommand
+    class RelayCommand : Command
     {
-        private Action<object> execute;
-        private Func<object, bool> canExecute;
+        private readonly Action<object> _Execute;
+        private readonly Func<object, bool> _CanExecute;
 
-        public event EventHandler CanExecuteChanged
+        public RelayCommand(Action<object> Execute, Func<object, bool> CanExecute = null)
         {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
+            _Execute = Execute ?? throw new ArgumentNullException(nameof(Execute));
+            _CanExecute = CanExecute;
         }
 
-        public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null)
-        {
-            this.execute = execute;
-            this.canExecute = canExecute;
-        }
+        public override bool CanExecute(object parameter) => _CanExecute?.Invoke(parameter) ?? true;
 
-        public bool CanExecute(object parameter)
-        {
-            return this.canExecute == null || this.canExecute(parameter);
-        }
-
-        public void Execute(object parameter)
-        {
-            this.execute(parameter);
-        }
+        public override void Execute(object parameter) => _Execute(parameter);
     }
+    
 }

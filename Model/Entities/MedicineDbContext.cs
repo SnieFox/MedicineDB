@@ -10,14 +10,17 @@ namespace MedicineDB.Model.Entities
 {
     internal class MedicineDbContext : DbContext
     {
-        public MedicineDbContext(DbContextOptions<MedicineDbContext> options)
-           : base(options)
-        {
-            Database.EnsureCreated();
-        }
+        //public MedicineDbContext(DbContextOptions<MedicineDbContext> options)
+        //   : base(options)
+        //{
+        //    Database.EnsureCreated();
+        //}
+
+
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=DESKTOP-O510GJE\\SQLEXPRESS;Database=MedicineDB;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer(@"Server=DESKTOP-O510GJE\SQLEXPRESS;Database=MedicineDB;Trusted_Connection=True;");
         }
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<Speciality> Specialities { get; set; }

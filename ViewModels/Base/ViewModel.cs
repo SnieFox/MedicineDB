@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JetBrains.Annotations;
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -7,28 +8,25 @@ namespace MedicineDB.ViewModels.Base
 
     internal abstract class ViewModel : INotifyPropertyChanged, IDisposable
     {
+        public bool HasChanges { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string prop = null)
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        protected virtual bool Set<T>(ref T field, T value, [CallerMemberName] string prop = null)
+
+
+        public virtual void Update() { }
+
+        /// <summary>
+        /// Освобождение ресурсов
+        /// </summary>
+        public virtual void Dispose()
         {
-            if (Equals(field, value)) return false;
-            field = value;
-            OnPropertyChanged(prop);
-            return true;
-        }
-        public void Dispose()
-        {
-            Dispose(true);
-        }
-        private bool _Disposed;
-        protected virtual void Dispose(bool Disposing)
-        {
-            if (!Disposing || _Disposed) return;
-            _Disposed = true;
-            //Освобождение управляемых ресурсов 
+            //MessageBox.Show(this.GetType().Name + " - Disposed!");
         }
     }
 }
