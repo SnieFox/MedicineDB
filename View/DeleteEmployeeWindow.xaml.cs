@@ -16,15 +16,16 @@ using System.Windows.Shapes;
 namespace MedicineDB.View
 {
     /// <summary>
-    /// Логика взаимодействия для AddEmployeeWindow.xaml
+    /// Логика взаимодействия для DeleteEmployeeWindow.xaml
     /// </summary>
-    public partial class AddEmployeeWindow : Window
+    public partial class DeleteEmployeeWindow : Window
     {
-        public AddEmployeeWindow()
+        public DeleteEmployeeWindow()
         {
             InitializeComponent();
 
-            DataContext = new AddEmployeeWindowViewModel();
+            DataContext = new DeleteEmployeeWindowViewModel();
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

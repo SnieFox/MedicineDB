@@ -41,7 +41,6 @@ namespace MedicineDB.Model.Entities
                 entity.Property(e => e.Surname).IsRequired();
                 entity.Property(e => e.Name).IsRequired();
                 entity.Property(e => e.Patronymic).IsRequired();
-                entity.Property(e => e.Age).IsRequired();
                 entity.Property(e => e.LocationID).IsRequired();
                 entity.Property(e => e.SpecialityID).IsRequired();
                 entity.Property(e => e.WorkplaceID).IsRequired();

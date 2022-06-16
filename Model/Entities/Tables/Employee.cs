@@ -1,6 +1,8 @@
-﻿using MedicineDB.ViewModels;
+﻿using MedicineDB.Model.Models;
+using MedicineDB.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -10,12 +12,12 @@ namespace MedicineDB.Entity.Tables
 {
     internal class Employee
     {
-
+        [Key]
         public int Id { get; set; }
+
         public string Surname { get; set; }
         public string Name { get; set; }
         public string Patronymic { get; set; }
-        public int Age { get; set; }
         public int LocationID { get; set; }
         public int SpecialityID { get; set; }
         public int WorkplaceID { get; set; }
@@ -30,14 +32,14 @@ namespace MedicineDB.Entity.Tables
         {
             get
             {
-                return MainWindowViewModel.GetWorkplaceById(WorkplaceID);
+                return DbUsage.GetWorkplaceById(WorkplaceID);
             }
         }
         public Speciality EmployeeSpesiality
         {
             get
             {
-                return MainWindowViewModel.GetSpecialitById(SpecialityID);
+                return DbUsage.GetSpecialitById(SpecialityID);
             }
         }
     }

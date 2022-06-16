@@ -11,6 +11,7 @@ using System.Linq;
 using MedicineDB.Model;
 using System.Windows;
 using MedicineDB.View;
+using MedicineDB.Model.Models;
 
 namespace MedicineDB.ViewModels
 {
@@ -22,95 +23,11 @@ namespace MedicineDB.ViewModels
             #region Commands
             OpenEditEmployeeWindow = new RelayCommand(OnOpenEditEmployeeWindowExecute, CanOpenEditEmployeeWindowExecute);
             OpenAddEmployeeWindow = new RelayCommand(OnOpenAddEmployeeWindowExecute, CanOpenAddEmployeeWindowExecute);
+            OpenDeleteEmployeeWindow = new RelayCommand(OnOpenDeleteEmployeeWindowExecute, CanOpenDeleteEmployeeWindowExecute);
             #endregion
 
         }
         #region Methods
-        //Получение полного списка сотрудников
-        public static List<Employee> GetAllEmployees()
-        {
-            using(MedicineDbContext db = new MedicineDbContext())
-            {
-                var employees =  db.Employees.ToList();   
-                return employees;
-            }
-        }
-
-        //Получение места работы по Id
-        public static Workplace GetWorkplaceById(int id)
-        {
-            using (MedicineDbContext db = new MedicineDbContext())
-            {
-                Workplace workplace = db.Workplaces.FirstOrDefault(p => p.Id == id);
-                return workplace;
-            }
-        }
-        //Получение специальности по Id
-        public static Speciality GetSpecialitById(int id)
-        {
-            using (MedicineDbContext db = new MedicineDbContext())
-            {
-                Speciality specialit = db.Specialities.FirstOrDefault(p => p.Id == id);
-                return specialit;
-            }
-        }
-
-        //Создать сотрудника
-        public static string CreateEmployee(Workplace workplace, Speciality speciality,  string surname, int age, string name, string patronymic)
-        {
-            string result = "Готово!";
-            using(MedicineDbContext db = new MedicineDbContext())
-            {
-                Employee employee = new Employee
-                {
-                    Surname = surname,
-                    Name = name,
-                    Patronymic = patronymic,
-                    Age = age,
-                    SpecialityID = speciality.Id,
-                    WorkplaceID = workplace.Id
-                };
-                db.Employees.Add(employee);
-                db.SaveChanges();
-            }
-            return result;
-        }
-
-        //Удалить сотрудника
-        public static string DeleteEmployee(Employee employee)
-        {
-            string result = "";
-            using (MedicineDbContext db = new MedicineDbContext())
-            {
-                db.Employees.Remove(employee);
-                db.SaveChanges();
-                result = $"Сотрудник (Id - {employee.Id}) удален из базы";
-            }
-            return result;
-        }
-
-        //Редактровать сотрудника
-        public static string EditEmployee(Employee oldEmployee, string newSurname, int newAge, string newName, string newPatronymic, Workplace newWorkplace, Speciality newSpeciality)
-        {
-            string result = "";
-            using (MedicineDbContext db = new MedicineDbContext())
-            {
-                Employee employee = db.Employees.FirstOrDefault(e => e.Id == oldEmployee.Id);
-                if (employee != null)
-                {
-                    employee.Name = newName;
-                    employee.Surname = newSurname;
-                    employee.Patronymic = newPatronymic;
-                    employee.Workplace = newWorkplace;
-                    employee.Speciality = newSpeciality;
-                    employee.Age = newAge;
-
-                    db.SaveChanges();
-                    result = $"Сотрудник (Id - {employee.Id}) изменен";
-                }
-            }
-            return result;
-        }
 
         //Методы открытия окон 
         private void SetCenterPositionAndOpen(Window window)
@@ -131,6 +48,12 @@ namespace MedicineDB.ViewModels
             EditEmployeeWindow editEmployeeWindow = new EditEmployeeWindow();
             SetCenterPositionAndOpen(editEmployeeWindow);
         }
+        private void OpenDeleteEmployeeWindowMethod()
+        {
+            DeleteEmployeeWindow deleteEmployeeWindow = new DeleteEmployeeWindow();
+            SetCenterPositionAndOpen(deleteEmployeeWindow);
+
+        }
 
         #endregion
 
@@ -149,7 +72,7 @@ namespace MedicineDB.ViewModels
         }
 
         //Отображение полного списка сотрудников
-        private List<Employee> allEmployees = GetAllEmployees();
+        private List<Employee> allEmployees = DbUsage.GetAllEmployees();
         public List<Employee> AllEmployees
         {
             get => allEmployees;
@@ -161,7 +84,7 @@ namespace MedicineDB.ViewModels
         }
 
         // Поля, которые принимают введенные данные в форму для поиска сотрудников
-        private string _IdTextBox = "Id";
+        private string _IdTextBox = "";
         public string IdTextBox
         {
             get => _IdTextBox;
@@ -175,7 +98,7 @@ namespace MedicineDB.ViewModels
             }
         }
 
-        private string _SurnameTextBox = "Фамилия";
+        private string _SurnameTextBox = "";
         public string SurnameTextBox
         {
             get => _SurnameTextBox;
@@ -186,7 +109,7 @@ namespace MedicineDB.ViewModels
             }
         }
 
-        private string _NameTextBox = "Имя";
+        private string _NameTextBox = "";
         public string NameTextBox
         {
             get => _NameTextBox;
@@ -197,7 +120,7 @@ namespace MedicineDB.ViewModels
             }
         }
 
-        private string _PatronymicTextBox = "Отчество";
+        private string _PatronymicTextBox = "";
         public string PatronymicTextBox
         {
             get => _PatronymicTextBox;
@@ -208,23 +131,23 @@ namespace MedicineDB.ViewModels
             }
         }
 
-        private string _SpecialityTextBox = "Специальность";
-        public string SpecialityTextBox
+        private List<string> specialitiesComboBox = DbUsage.GetSpecialities();
+        public List<string> SpecialityTextBox
         {
-            get => _SpecialityTextBox;
+            get => specialitiesComboBox;
             set
             {
-                _SpecialityTextBox = value;
+                specialitiesComboBox = value;
                 OnPropertyChanged();
             }
         }
-        private string _WorkplaceTextBox = "Место работы";
-        public string WorkplaceTextBox
+        private List<string> workplaceComboBox = DbUsage.GetWorkplace();
+        public List<string> WorkplaceTextBox
         {
-            get => _WorkplaceTextBox;
+            get => workplaceComboBox;
             set
             {
-                _WorkplaceTextBox= value;
+                workplaceComboBox = value;
                 OnPropertyChanged();
             }
         }
@@ -246,7 +169,12 @@ namespace MedicineDB.ViewModels
         }
 
         //Команда кнопки удаления сотрудников
-
+        public RelayCommand OpenDeleteEmployeeWindow { get; }
+        private bool CanOpenDeleteEmployeeWindowExecute(object arg) => true;
+        private void OnOpenDeleteEmployeeWindowExecute(object obj)
+        {
+            OpenDeleteEmployeeWindowMethod();
+        }
         //Команда кнопки изменения данных сотрудников
         public RelayCommand OpenEditEmployeeWindow { get; }
         private bool CanOpenEditEmployeeWindowExecute(object arg) => true;
