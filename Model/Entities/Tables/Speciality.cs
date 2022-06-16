@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace MedicineDB.Entity.Tables
 {
@@ -11,6 +7,6 @@ namespace MedicineDB.Entity.Tables
         public int Id { get; set; }
         public string Specialty { get; set; }
 
-        public List<Employee> Employee { get; set; }
+        public List<Employee> Employees { get; set; }
     }
 }

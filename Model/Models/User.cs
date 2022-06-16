@@ -1,10 +1,7 @@
 ﻿using MedicineDB.Entity.Tables;
 using MedicineDB.Model.Entities;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace MedicineDB.Model
@@ -22,8 +19,8 @@ namespace MedicineDB.Model
                     Surname = surname,
                     Name = name,
                     Patronymic = patronymic,
-                    SpecialityID = speciality.Id,
-                    WorkplaceID = workplace.Id
+                    SpecialityID = speciality?.Id,
+                    WorkplaceID = workplace?.Id
                 };
                 db.Employees.Add(employee);
                 db.SaveChanges();
