@@ -1,5 +1,6 @@
 ﻿using MedicineDB.Entity.Tables;
 using MedicineDB.Model.Entities;
+using MedicineDB.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,16 @@ namespace MedicineDB.Model.Models
 {
     internal class DbUsage
     {
+        //метод обновления окна 
+        public void ViewRefreshMethod()
+        {
+            MainWindowViewModel mainWindowViewModel = new MainWindowViewModel();
+            mainWindowViewModel.AllEmployees = GetAllEmployees();
+            MainWindow.AllEmployeesView.ItemsSource = null;
+            MainWindow.AllEmployeesView.Items.Clear();
+            MainWindow.AllEmployeesView.ItemsSource = GetAllEmployees();
+            MainWindow.AllEmployeesView.Items.Refresh();
+        }
         //Получение полного списка сотрудников
         public static List<Employee> GetAllEmployees()
         {
@@ -87,5 +98,6 @@ namespace MedicineDB.Model.Models
                 return specialit;
             }
         }
+
     }
 }

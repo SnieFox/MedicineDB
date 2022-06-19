@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace MedicineDB.Entity.Tables
 {
@@ -11,6 +7,6 @@ namespace MedicineDB.Entity.Tables
         public int Id { get; set; }
         public string CountyName { get; set; }
 
-        public List<Location> Location { get; set; }
+        public List<Location> Locations { get; set; }
     }
 }

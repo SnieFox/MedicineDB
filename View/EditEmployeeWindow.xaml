@@ -13,43 +13,51 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Vertical"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Width="200">
-            <TextBlock Text="Фамилия"/>
-            <TextBox Text=""/>
+            <TextBlock Text="Id"/>
+            <TextBox Text="{Binding Id, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
         <StackPanel Grid.Row="1" Orientation="Vertical"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Width="200">
-            <TextBlock Text="Имя"/>
-            <TextBox Text=""/>
+            <TextBlock Text="Фамилия"/>
+            <TextBox Text="{Binding SurName, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
         <StackPanel Grid.Row="2" Orientation="Vertical"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Width="200">
-            <TextBlock Text="Отчество"/>
-            <TextBox Text=""/>
+            <TextBlock Text="Имя"/>
+            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
         <StackPanel Grid.Row="3" Orientation="Vertical"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Width="200">
-            <TextBlock Text="Специальность"/>
-            <ComboBox Text=""/>
+            <TextBlock Text="Отчество"/>
+            <TextBox Text="{Binding Patronymic, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
         <StackPanel Grid.Row="4" Orientation="Vertical"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Width="200">
-            <TextBlock Text="Место работы"/>
-            <ComboBox Text=""/>
+            <TextBlock Text="Специальность"/>
+            <ComboBox SelectedItem="{Binding SpecialitiesItem, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding SpecialityTextBox, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
-        <Button FontWeight="SemiBold" Background="#BCD487" Grid.Row="5" Content="Изменить сотрудника"/>
+        <StackPanel Grid.Row="5" Orientation="Vertical"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Width="200">
+            <TextBlock Text="Место работы"/>
+            <ComboBox SelectedItem="{Binding WorkplaceItem, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding WorkplaceTextBox, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+        <Button  Command="{Binding EditEmployee, UpdateSourceTrigger=PropertyChanged}" FontWeight="SemiBold" Background="#BCD487" Grid.Row="6" Content="Изменить сотрудника" Click="Button_Click"/>
     </Grid>
 </Window>

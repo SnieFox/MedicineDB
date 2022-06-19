@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MedicineDB.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,12 @@ namespace MedicineDB.View
         public EditEmployeeWindow()
         {
             InitializeComponent();
+            DataContext = new EditEmployeeWindowViewModel();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

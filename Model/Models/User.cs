@@ -1,10 +1,7 @@
 ﻿using MedicineDB.Entity.Tables;
 using MedicineDB.Model.Entities;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace MedicineDB.Model
@@ -22,8 +19,8 @@ namespace MedicineDB.Model
                     Surname = surname,
                     Name = name,
                     Patronymic = patronymic,
-                    SpecialityID = speciality.Id,
-                    WorkplaceID = workplace.Id
+                    SpecialityID = speciality?.Id,
+                    WorkplaceID = workplace?.Id
                 };
                 db.Employees.Add(employee);
                 db.SaveChanges();
@@ -32,7 +29,7 @@ namespace MedicineDB.Model
         }
 
         //Редактровать сотрудника
-        public static string EditEmployee(Employee oldEmployee, string newSurname, int newAge, string newName, string newPatronymic, Workplace newWorkplace, Speciality newSpeciality)
+        public static string EditEmployee(Employee oldEmployee, Workplace newWorkplace, Speciality newSpeciality, string newSurname, string newName, string newPatronymic)
         {
             string result = "";
             using (MedicineDbContext db = new MedicineDbContext())

@@ -104,8 +104,11 @@ namespace MedicineDB.ViewModels
         private void OnAddEmployeeExecute(object obj)
         {
             User.CreateEmployee(DbUsage.GetWorkplaceByName(WorkplaceItem), DbUsage.GetSpecialitByName(SpecialitiesItem), SurName, Name, Patronymic);
+            DbUsage dbUsage = new DbUsage();
+            dbUsage.ViewRefreshMethod();
             OnPropertyChanged();
         }
+
         public event PropertyChangedEventHandler? PropertyChanged;
     }
 }

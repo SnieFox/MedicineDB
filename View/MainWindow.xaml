@@ -56,8 +56,8 @@
             <TextBlock Text="Место работы" Height="28" Width="254"/>
             <ComboBox ItemsSource="{Binding WorkplaceTextBox, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
-        <ScrollViewer Margin="10,10,231,99" Height="375">
-            <DataGrid ItemsSource="{Binding AllEmployees}" x:Name="employeesGrid" AutoGenerateColumns="False"  Background="#C4C4C4" BorderThickness="2" BorderBrush="#BCD487">
+        <ScrollViewer Margin="10,10,231,99" Height="375" >
+            <DataGrid x:Name="employeesGrid" ItemsSource="{Binding AllEmployees}" AutoGenerateColumns="False"  Background="#C4C4C4" BorderThickness="2" BorderBrush="#BCD487">
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Id}" Header="Id"/>
                     <DataGridTextColumn Binding="{Binding Surname}" Header="Фамилия"/>

@@ -2,6 +2,7 @@
 using MedicineDB.Entity.Tables;
 using MedicineDB.Model;
 using MedicineDB.Model.Entities;
+using MedicineDB.Model.Models;
 using MedicineDB.View;
 using MedicineDB.ViewModels.Base;
 using System;
@@ -39,6 +40,8 @@ namespace MedicineDB.ViewModels
         private void OnDeleteEmployeeExecute(object obj)
         {
             User.DeleteEmployeeMethod(User.GetEmployeeById(Id));
+            DbUsage dbUsage = new DbUsage();
+            dbUsage.ViewRefreshMethod();
             OnPropertyChanged();
         }
         public event PropertyChangedEventHandler? PropertyChanged;

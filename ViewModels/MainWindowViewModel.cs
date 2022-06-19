@@ -24,6 +24,7 @@ namespace MedicineDB.ViewModels
             OpenEditEmployeeWindow = new RelayCommand(OnOpenEditEmployeeWindowExecute, CanOpenEditEmployeeWindowExecute);
             OpenAddEmployeeWindow = new RelayCommand(OnOpenAddEmployeeWindowExecute, CanOpenAddEmployeeWindowExecute);
             OpenDeleteEmployeeWindow = new RelayCommand(OnOpenDeleteEmployeeWindowExecute, CanOpenDeleteEmployeeWindowExecute);
+            ClearButton = new RelayCommand(OnClearButtonExecute, CanClearButtonExecute);
             #endregion
 
         }
@@ -184,7 +185,14 @@ namespace MedicineDB.ViewModels
         }
 
         //Комманды для очистки текста в поиске
-
+        public RelayCommand ClearButton { get; }
+        private bool CanClearButtonExecute(object arg) => true;
+        private void OnClearButtonExecute(object obj)
+        {
+            DbUsage dbUsage = new DbUsage();
+            dbUsage.ViewRefreshMethod();
+            OnPropertyChanged();
+        }
 
         #endregion
 
