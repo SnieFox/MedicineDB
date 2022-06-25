@@ -25,6 +25,7 @@ namespace MedicineDB.ViewModels
             OpenAddEmployeeWindow = new RelayCommand(OnOpenAddEmployeeWindowExecute, CanOpenAddEmployeeWindowExecute);
             OpenDeleteEmployeeWindow = new RelayCommand(OnOpenDeleteEmployeeWindowExecute, CanOpenDeleteEmployeeWindowExecute);
             ClearButton = new RelayCommand(OnClearButtonExecute, CanClearButtonExecute);
+            SearchButton = new RelayCommand(OnSearchButtonExecute, CanSearchButtonExecute);
             #endregion
 
         }
@@ -85,8 +86,8 @@ namespace MedicineDB.ViewModels
         }
 
         // Поля, которые принимают введенные данные в форму для поиска сотрудников
-        private string _IdTextBox = "";
-        public string IdTextBox
+        private int _IdTextBox;
+        public int IdTextBox
         {
             get => _IdTextBox;
             set
@@ -152,12 +153,46 @@ namespace MedicineDB.ViewModels
                 OnPropertyChanged();
             }
         }
-        #endregion 
+        //Выбранный элемент ComboBox Workplaces
+        private string workplaceItem;
+        public string WorkplaceItem
+        {
+            get => workplaceItem;
+            set
+            {
+                workplaceItem = value;
+                OnPropertyChanged();
+            }
+        }
+        //Выбранный элемент ComboBox Specialities
+        private string specialitiesItem;
+        public string SpecialitiesItem
+        {
+            get => specialitiesItem;
+            set
+            {
+                specialitiesItem = value;
+                OnPropertyChanged();
+            }
+        }
+        #endregion
 
         #region Commands
         //Комманды для кнопок представления
 
         //Команда кнопки поиска по критериям
+        public RelayCommand SearchButton { get; }
+        private bool CanSearchButtonExecute(object arg) => true;
+        private void OnSearchButtonExecute(object obj)
+        {
+            AllEmployees = DbUsage.SearchEmployeeByParams(IdTextBox, SurnameTextBox, NameTextBox, PatronymicTextBox, DbUsage.GetWorkplaceByName(WorkplaceItem), DbUsage.GetSpecialitByName(SpecialitiesItem));
+            IdTextBox = default;
+            SurnameTextBox = "";
+            NameTextBox = "";
+            PatronymicTextBox = "";
+            WorkplaceItem = "";
+            SpecialitiesItem = "";
+        }
 
         //Команда кнопки очистки результатов
 

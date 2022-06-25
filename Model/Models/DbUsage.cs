@@ -1,6 +1,7 @@
 ﻿using MedicineDB.Entity.Tables;
 using MedicineDB.Model.Entities;
 using MedicineDB.ViewModels;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -98,6 +99,63 @@ namespace MedicineDB.Model.Models
                 return specialit;
             }
         }
-
+        //Поиск сотрудников по критериям 
+        public static List<Employee> SearchEmployeeByParams(int id, string surname, string name, string patronymic, Workplace workplace, Speciality speciality)
+        {
+            using (MedicineDbContext db = new MedicineDbContext())
+            {
+                if(id!=0)
+                {
+                    try
+                    {
+                        string sql = $"SELECT * FROM Employee WHERE Id LIKE '%{id}%' AND Name LIKE '%{name}%' AND Surname LIKE '%{surname}%' AND Patronymic LIKE '%{patronymic}%' AND SpecialityID LIKE {speciality.Id} AND WorkplaceID LIKE {workplace.Id}";
+                        var employees = db.Employees.FromSqlRaw(sql).ToList();
+                        return employees;
+                    }
+                    catch (NullReferenceException ex)
+                    {
+                        try
+                        {
+                            string sql = $"SELECT * FROM Employee WHERE Id LIKE '%{id}%' AND Name LIKE '%{name}%' AND Surname LIKE '%{surname}%' AND Patronymic LIKE '%{patronymic}%' AND WorkplaceID LIKE '{workplace.Id}'";
+                            var employees = db.Employees.FromSqlRaw(sql).ToList();
+                            return employees;
+                        }
+                        catch
+                        {
+                            string sql = $"SELECT * FROM Employee WHERE Id LIKE '%{id}%' AND Name LIKE '%{name}%' AND Surname LIKE '%{surname}%' AND Patronymic LIKE '%{patronymic}%'";
+                            var employees = db.Employees.FromSqlRaw(sql).ToList();
+                            return employees;
+                        }
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        string sql = $"SELECT * FROM Employee WHERE Name LIKE '%{name}%' AND Surname LIKE '%{surname}%' AND Patronymic LIKE '%{patronymic}%' AND SpecialityID LIKE {speciality.Id} AND WorkplaceID LIKE {workplace.Id}";
+                        var employees = db.Employees.FromSqlRaw(sql).ToList();
+                        return employees;
+                    }
+                    catch (NullReferenceException ex)
+                    {
+                        try
+                        {
+                            string sql = $"SELECT * FROM Employee WHERE Name LIKE '%{name}%' AND Surname LIKE '%{surname}%' AND Patronymic LIKE '%{patronymic}%' AND WorkplaceID LIKE '{workplace.Id}'";
+                            var employees = db.Employees.FromSqlRaw(sql).ToList();
+                            return employees;
+                        }
+                        catch
+                        {
+                            string sql = $"SELECT * FROM Employee WHERE Name LIKE '%{name}%' AND Surname LIKE '%{surname}%' AND Patronymic LIKE '%{patronymic}%'";
+                            var employees = db.Employees.FromSqlRaw(sql).ToList();
+                            return employees;
+                        }
+                    }
+                }
+                
+                
+                ////List<Employee> employees = db.Employees.Where(emp => emp.Id == id).ToList();
+            }
+        }
     }
 }
