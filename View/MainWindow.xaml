@@ -70,7 +70,7 @@
         </ScrollViewer>
 
         <Button Command="{Binding SearchButton}" FontWeight="SemiBold" Background="#BCD487" Content="Поиск" HorizontalAlignment="Left" Margin="669,413,0,0" VerticalAlignment="Top" Width="196" Height="26"/>
-        <Button Command="{Binding ClearCommand}" FontWeight="SemiBold" Background="#BCD487" Content="Сброс" HorizontalAlignment="Left" Margin="33,413,0,0" VerticalAlignment="Top" Width="130" Height="26"/>
+        <Button Command="{Binding ClearButton}" FontWeight="SemiBold" Background="#BCD487" Content="Сброс" HorizontalAlignment="Left" Margin="33,413,0,0" VerticalAlignment="Top" Width="130" Height="26"/>
         <Button Command="{Binding OpenAddEmployeeWindow}" FontWeight="SemiBold" Background="#BCD487" Content="Добавить сотрудника" HorizontalAlignment="Left" Margin="187,413,0,0" VerticalAlignment="Top" Width="130" Height="26"/>
         <Button Command="{Binding OpenDeleteEmployeeWindow}" FontWeight="SemiBold" Background="#BCD487" Content="Удалить сотрудника" HorizontalAlignment="Left" Margin="340,413,0,0" VerticalAlignment="Top" Width="130" Height="26"/>
         <Button Command="{Binding OpenEditEmployeeWindow}" FontWeight="SemiBold" Background="#BCD487" Content="Изменить данные" HorizontalAlignment="Left" Margin="491,413,0,0" VerticalAlignment="Top" Width="130" Height="26"/>

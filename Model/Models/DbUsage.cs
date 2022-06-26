@@ -146,9 +146,19 @@ namespace MedicineDB.Model.Models
                         }
                         catch
                         {
-                            string sql = $"SELECT * FROM Employee WHERE Name LIKE '%{name}%' AND Surname LIKE '%{surname}%' AND Patronymic LIKE '%{patronymic}%'";
-                            var employees = db.Employees.FromSqlRaw(sql).ToList();
-                            return employees;
+                            try
+                            {
+                                string sql = $"SELECT * FROM Employee WHERE Name LIKE '%{name}%' AND Surname LIKE '%{surname}%' AND Patronymic LIKE '%{patronymic}%' AND SpecialityID LIKE {speciality.Id}";
+                                var employees = db.Employees.FromSqlRaw(sql).ToList();
+                                return employees;
+                            }
+                            catch
+                            {
+                                string sql = $"SELECT * FROM Employee WHERE Name LIKE '%{name}%' AND Surname LIKE '%{surname}%' AND Patronymic LIKE '%{patronymic}%'";
+                                var employees = db.Employees.FromSqlRaw(sql).ToList();
+                                return employees;
+                            }
+                            
                         }
                     }
                 }

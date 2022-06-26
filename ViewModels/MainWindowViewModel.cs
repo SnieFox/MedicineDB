@@ -106,7 +106,7 @@ namespace MedicineDB.ViewModels
             get => _SurnameTextBox;
             set
             {
-                _SurnameTextBox= value;
+                _SurnameTextBox= value.ToLower();
                 OnPropertyChanged();
             }
         }
@@ -117,7 +117,7 @@ namespace MedicineDB.ViewModels
             get => _NameTextBox;
             set
             {
-                _NameTextBox= value;
+                _NameTextBox= value.ToLower();
                 OnPropertyChanged();
             }
         }
@@ -128,7 +128,7 @@ namespace MedicineDB.ViewModels
             get => _PatronymicTextBox;
             set
             {
-                _PatronymicTextBox= value;
+                _PatronymicTextBox= value.ToLower();
                 OnPropertyChanged();
             }
         }
@@ -190,12 +190,23 @@ namespace MedicineDB.ViewModels
             SurnameTextBox = "";
             NameTextBox = "";
             PatronymicTextBox = "";
-            WorkplaceItem = "";
-            SpecialitiesItem = "";
+            WorkplaceItem = default;
+            SpecialitiesItem = default;
+            OnPropertyChanged();
         }
 
         //Команда кнопки очистки результатов
-
+        //public RelayCommand ClearButton { get; }
+        //private bool CanClearButtonExecute(object arg) => true;
+        //private void OnClearButtonExecute(object obj)
+        //{
+        //    IdTextBox = default;
+        //    SurnameTextBox = "";
+        //    NameTextBox = "";
+        //    PatronymicTextBox = "";
+        //    WorkplaceItem = default;
+        //    SpecialitiesItem = default;
+        //}
         //Команда кнопки добаввления сотрудников
         public RelayCommand OpenAddEmployeeWindow { get; }
         private bool CanOpenAddEmployeeWindowExecute(object arg) => true;
