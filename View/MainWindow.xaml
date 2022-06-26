@@ -7,36 +7,75 @@
         xmlns:vm="clr-namespace:MedicineDB.ViewModels"
         mc:Ignorable="d"
         Title="{Binding Title}" 
+        ResizeMode="NoResize"
         Height="500" Width="900">
+
     <Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>
     <Grid>
-        <ScrollViewer Margin="10,10,231,99" Height="375">
-            <DataGrid Background="#C4C4C4" BorderThickness="2" BorderBrush="#BCD487">
+        <StackPanel Orientation="Vertical"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Width="196" RenderTransformOrigin="0.509,0.616" Height="56" Margin="669,46,0,0">
+            <TextBlock Text="Id" Height="28" Width="254"/>
+            <TextBox Text="{Binding IdTextBox}"/>
+        </StackPanel>
+        <StackPanel Orientation="Vertical"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Width="196" RenderTransformOrigin="0.509,0.616" Height="56" Margin="669,102,0,0">
+            <TextBlock Text="Фамилия" Height="28" Width="254"/>
+            <TextBox Text="{Binding SurnameTextBox}"/>
+        </StackPanel>
+        <StackPanel Orientation="Vertical"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Width="196" RenderTransformOrigin="0.509,0.616" Height="56" Margin="669,158,0,0">
+            <TextBlock Text="Имя" Height="28" Width="254"/>
+            <TextBox Text="{Binding NameTextBox}"/>
+        </StackPanel>
+        <StackPanel Orientation="Vertical"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Width="196" RenderTransformOrigin="0.509,0.616" Height="56" Margin="669,0,0,0">
+            <TextBlock Text="Отчество" Height="28" Width="254"/>
+            <TextBox Text="{Binding PatronymicTextBox}"/>
+        </StackPanel>
+        <StackPanel Orientation="Vertical"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Width="196" RenderTransformOrigin="0.509,0.616" Height="56" Margin="669,273,0,0">
+            <TextBlock Text="Специальность" Height="28" Width="254"/>
+            <ComboBox SelectedItem="{Binding SpecialitiesItem, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding SpecialityTextBox, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+        <StackPanel Orientation="Vertical"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Width="196" RenderTransformOrigin="0.509,0.616" Height="56" Margin="669,329,0,0">
+            <TextBlock Text="Место работы" Height="28" Width="254"/>
+            <ComboBox  SelectedItem="{Binding WorkplaceItem, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding WorkplaceTextBox, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+        <ScrollViewer Margin="10,10,231,99" Height="375" >
+            <DataGrid x:Name="employeesGrid" ItemsSource="{Binding AllEmployees}" AutoGenerateColumns="False"  Background="#C4C4C4" BorderThickness="2" BorderBrush="#BCD487">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id"/>
-                    <DataGridTextColumn Header="Фамилия"/>
-                    <DataGridTextColumn Header="Имя"/>
-                    <DataGridTextColumn Header="Отчество"/>
-                    <DataGridTextColumn Header="Специальность"/>
-                    <DataGridTextColumn Header="Должность"/>
-                    <DataGridTextColumn Header="Место работы"/>
+                    <DataGridTextColumn Binding="{Binding Id}" Header="Id"/>
+                    <DataGridTextColumn Binding="{Binding Surname}" Header="Фамилия"/>
+                    <DataGridTextColumn Binding="{Binding Name}" Header="Имя"/>
+                    <DataGridTextColumn Binding="{Binding Patronymic}" Header="Отчество"/>
+                    <DataGridTextColumn Binding="{Binding EmployeeSpesiality.Specialty}" Header="Специальность"/>
+                    <DataGridTextColumn Binding="{Binding EmployeeWorkplace.Name}" Header="Место работы"/>
                 </DataGrid.Columns>
             </DataGrid>
         </ScrollViewer>
-        <TextBox FontWeight="SemiBold" Background="#C4C4C4" HorizontalAlignment="Left" Margin="663,45,0,0" TextWrapping="Wrap" Text="Id" VerticalAlignment="Top" Width="217" Height="26"/>
-        <TextBox FontWeight="SemiBold" Background="#C4C4C4" HorizontalAlignment="Left" Margin="663,76,0,0" TextWrapping="Wrap" Text="Фамилия" VerticalAlignment="Top" Width="217" Height="26"/>
-        <TextBox FontWeight="SemiBold" Background="#C4C4C4" HorizontalAlignment="Left" Margin="663,107,0,0" TextWrapping="Wrap" Text="Имя" VerticalAlignment="Top" Width="217" Height="26"/>
-        <TextBox FontWeight="SemiBold" Background="#C4C4C4" HorizontalAlignment="Left" Margin="663,138,0,0" TextWrapping="Wrap" Text="Отчество" VerticalAlignment="Top" Width="217" Height="26"/>
-        <TextBox FontWeight="SemiBold" Background="#C4C4C4" HorizontalAlignment="Left" Margin="663,169,0,0" TextWrapping="Wrap" Text="Специальность" VerticalAlignment="Top" Width="217" Height="26"/>
-        <TextBox FontWeight="SemiBold" Background="#C4C4C4" HorizontalAlignment="Left" Margin="663,200,0,0" TextWrapping="Wrap" Text="Должность" VerticalAlignment="Top" Width="217" Height="26"/>
-        <TextBox FontWeight="SemiBold" Background="#C4C4C4" HorizontalAlignment="Left" Margin="663,231,0,0" TextWrapping="Wrap" Text="Место работы" VerticalAlignment="Top" Width="217" Height="26"/>
-        <Button FontWeight="SemiBold" Background="#BCD487" Content="Поиск" HorizontalAlignment="Left" Margin="663,298,0,0" VerticalAlignment="Top" Width="217" Height="26"/>
-        <Button FontWeight="SemiBold" Background="#BCD487" Content="Сброс" HorizontalAlignment="Left" Margin="33,413,0,0" VerticalAlignment="Top" Width="130" Height="26"/>
-        <Button FontWeight="SemiBold" Background="#BCD487" Content="Добавить сотрудника" HorizontalAlignment="Left" Margin="187,413,0,0" VerticalAlignment="Top" Width="130" Height="26"/>
-        <Button FontWeight="SemiBold" Background="#BCD487" Content="Удалить сотрудника" HorizontalAlignment="Left" Margin="340,413,0,0" VerticalAlignment="Top" Width="130" Height="26"/>
-        <Button FontWeight="SemiBold" Background="#BCD487" Content="Изменить данные" HorizontalAlignment="Left" Margin="491,413,0,0" VerticalAlignment="Top" Width="130" Height="26"/>
+
+        <Button Command="{Binding SearchButton}" FontWeight="SemiBold" Background="#BCD487" Content="Поиск" HorizontalAlignment="Left" Margin="669,413,0,0" VerticalAlignment="Top" Width="196" Height="26"/>
+        <Button Command="{Binding ClearButton}" FontWeight="SemiBold" Background="#BCD487" Content="Сброс" HorizontalAlignment="Left" Margin="33,413,0,0" VerticalAlignment="Top" Width="130" Height="26"/>
+        <Button Command="{Binding OpenAddEmployeeWindow}" FontWeight="SemiBold" Background="#BCD487" Content="Добавить сотрудника" HorizontalAlignment="Left" Margin="187,413,0,0" VerticalAlignment="Top" Width="130" Height="26"/>
+        <Button Command="{Binding OpenDeleteEmployeeWindow}" FontWeight="SemiBold" Background="#BCD487" Content="Удалить сотрудника" HorizontalAlignment="Left" Margin="340,413,0,0" VerticalAlignment="Top" Width="130" Height="26"/>
+        <Button Command="{Binding OpenEditEmployeeWindow}" FontWeight="SemiBold" Background="#BCD487" Content="Изменить данные" HorizontalAlignment="Left" Margin="491,413,0,0" VerticalAlignment="Top" Width="130" Height="26"/>
+
+
 
     </Grid>
 </Window>
