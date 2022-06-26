@@ -235,8 +235,13 @@ namespace MedicineDB.ViewModels
         private bool CanClearButtonExecute(object arg) => true;
         private void OnClearButtonExecute(object obj)
         {
-            DbUsage dbUsage = new DbUsage();
-            dbUsage.ViewRefreshMethod();
+            IdTextBox = default;
+            SurnameTextBox = "";
+            NameTextBox = "";
+            PatronymicTextBox = "";
+            WorkplaceItem = default;
+            SpecialitiesItem = default;
+            AllEmployees = DbUsage.GetAllEmployees();
             OnPropertyChanged();
         }
 

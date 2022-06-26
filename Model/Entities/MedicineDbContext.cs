@@ -19,7 +19,7 @@ namespace MedicineDB.Model.Entities
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=DESKTOP-O510GJE\SQLEXPRESS;Database=MedicineDB;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer(@"Server=DESKTOP-63ASIAM;Database=MedicineDB;Trusted_Connection=True;");
         }
 
         // Settings for PostgreSql
